@@ -14,5 +14,6 @@ export default defineConfig({
   ],
   resolve: {
     tsconfigPaths: true,
+    dedupe: ["i18next", "react-i18next"],
   },
 });

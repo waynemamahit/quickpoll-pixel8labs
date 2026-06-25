@@ -1,0 +1,8 @@
+{
+  "generic": "Something went wrong. Please try again.",
+  "createFailed": "Could not create the poll.",
+  "voteFailed": "Could not submit your vote.",
+  "closeFailed": "Could not close the poll.",
+  "loadFailed": "Could not load the poll.",
+  "streamFailed": "Live updates unavailable — refreshing periodically."
+}

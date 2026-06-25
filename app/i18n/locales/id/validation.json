@@ -1,0 +1,10 @@
+{
+  "questionRequired": "Masukkan pertanyaan.",
+  "questionTooLong": "Pertanyaan maksimal {{max}} karakter.",
+  "optionRequired": "Opsi tidak boleh kosong.",
+  "optionTooLong": "Opsi maksimal {{max}} karakter.",
+  "tooFewOptions": "Tambahkan minimal 2 opsi.",
+  "tooManyOptions": "Maksimal {{max}} opsi.",
+  "duplicateOptions": "Opsi harus unik.",
+  "selectOption": "Pilih opsi untuk memberikan suara."
+}

@@ -28,8 +28,7 @@
    * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
    */
   "vars": {
-    // "CORS_ALLOWED_ORIGINS": "*"
-    "VALUE_FROM_CLOUDFLARE": "${VALUE_FROM_CLOUDFLARE}"
+    "CORS_ALLOWED_ORIGINS": "${CORS_ALLOWED_ORIGINS}"
   },
   // For more information on KV, see https://developers.cloudflare.com/kv/
   "kv_namespaces": [
@@ -39,34 +38,37 @@
     }
   ],
   // For more information on D1, see https://developers.cloudflare.com/d1/
-  "d1_databases": [
-    {
-      "binding": "D1",
-      "database_name": "staging_db",
-      "database_id": "${D1_DB_ID}"
-    }
-  ],
+  // "d1_databases": [
+  //   {
+  //     "binding": "D1",
+  //     "database_name": "staging_db",
+  //     "database_id": "${D1_DB_ID}"
+  //   }
+  // ],
   // For more information on Hyperdrive, see https://developers.cloudflare.com/hyperdrive/
-  "hyperdrive": [
-    {
-      "binding": "HYPERDRIVE",
-      "id": "${HYPERDRIVE_DB_ID}",
-      "localConnectionString": "postgres://postgres:postgres@127.0.0.1:5432/staging_db"
-    }
-  ],
+  // "hyperdrive": [
+  //   {
+  //     "binding": "HYPERDRIVE",
+  //     "id": "${HYPERDRIVE_DB_ID}",
+  //     "localConnectionString": "postgres://postgres:postgres@127.0.0.1:5432/staging_db",
+  //   }
+  // ],
   // For more information on Durable Objects, see https://developers.cloudflare.com/durable-objects/
   "migrations": [
     {
       "tag": "v1",
-      // "new_classes": ["Counter"], // This is work for only paid plan
-      "new_sqlite_classes": ["Counter"]
+      "new_sqlite_classes": ["Poll", "SseSpike"]
     }
   ],
   "durable_objects": {
     "bindings": [
       {
-        "name": "DO_COUNTER",
-        "class_name": "Counter"
+        "name": "DO_POLL",
+        "class_name": "Poll"
+      },
+      {
+        "name": "DO_SSE_SPIKE",
+        "class_name": "SseSpike"
       }
     ]
   },
@@ -79,22 +81,22 @@
   //   }
   // ],
   // For more information on Workers AI, see https://developers.cloudflare.com/workers-ai/
-  "ai": {
-    "binding": "AI",
-    "remote": true
-  },
+  // "ai": {
+  //   "binding": "AI",
+  //   "remote": true
+  // },
   // For more information on Vectorize, see https://developers.cloudflare.com/vectorize/
-  "vectorize": [
-    {
-      "binding": "VECTORIZE",
-      "index_name": "${VECTORIZE_INDEX_NAME}",
-      "remote": true
-    }
-  ],
+  // "vectorize": [
+  //   {
+  //     "binding": "VECTORIZE",
+  //     "index_name": "${VECTORIZE_INDEX_NAME}",
+  //     "remote": true
+  //   }
+  // ],
   // For more information on Browser Rendering, see https://developers.cloudflare.com/browser-rendering/
-  "browser": {
-    "binding": "BROWSER"
-  },
+  // "browser": {
+  //   "binding": "BROWSER"
+  // },
   // For more information on Rate Limiter, see https://developers.cloudflare.com/workers/runtime-apis/bindings/rate-limit/
   // and see https://honohub.dev/docs/rate-limiter/stores/cloudflare
   "ratelimits": [
@@ -102,7 +104,7 @@
       "name": "LONG_RATE_LIMITER",
       "namespace_id": "1001",
       "simple": {
-        "limit": 1000,
+        "limit": 12000,
         "period": 60
       }
     },

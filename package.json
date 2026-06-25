@@ -14,7 +14,7 @@
     "preview:remote": "pnpm build && node scripts/gen-wrangler.js local && wrangler dev",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "test:cov": "vitest run --coverage",
+    "test:cov": "vitest run --coverage --config vitest.config.ts && vitest run --config vitest.workers.config.ts",
     "test:out": "vitest run --reporter=json --outputFile=./test-results.json",
     "test:e2e": "playwright test",
     "typecheck": "wrangler types && react-router typegen && tsc -b"

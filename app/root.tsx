@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { I18nextProvider } from "react-i18next";
 import {
   isRouteErrorResponse,
   Links,
@@ -6,9 +8,30 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-
 import type { Route } from "./+types/root";
+import "./i18n/config";
+import i18n, { getI18nHandoffScript } from "./i18n/config";
 import "./app.css";
+
+function AppReadyMarker(): null {
+  useEffect(() => {
+    const markReady = (): void => {
+      if (i18n.t("createPoll") !== "createPoll") {
+        document.documentElement.dataset.appReady = "true";
+      }
+    };
+
+    markReady();
+    i18n.on("initialized", markReady);
+    i18n.on("languageChanged", markReady);
+
+    return () => {
+      i18n.off("initialized", markReady);
+      i18n.off("languageChanged", markReady);
+    };
+  }, []);
+  return null;
+}
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -25,10 +48,13 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang={i18n.language}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script
+          src={`data:text/javascript,${encodeURIComponent(getI18nHandoffScript())}`}
+        />
         <Meta />
         <Links />
       </head>
@@ -42,7 +68,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <I18nextProvider i18n={i18n}>
+      <AppReadyMarker />
+      <Outlet />
+    </I18nextProvider>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
