@@ -1,0 +1,8 @@
+{
+  "generic": "Terjadi kesalahan. Silakan coba lagi.",
+  "createFailed": "Tidak dapat membuat polling.",
+  "voteFailed": "Tidak dapat mengirim suara Anda.",
+  "closeFailed": "Tidak dapat menutup polling.",
+  "loadFailed": "Tidak dapat memuat polling.",
+  "streamFailed": "Pembaruan langsung tidak tersedia — memuat ulang secara berkala."
+}

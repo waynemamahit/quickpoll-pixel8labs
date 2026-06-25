@@ -1,32 +1,18 @@
-import { env } from "cloudflare:workers";
-
-import { useNavigate } from "react-router";
-import { Welcome } from "../welcome/welcome";
+import { AppLayout } from "../components/AppLayout";
+import { CreatePollForm } from "../components/CreatePollForm";
 import type { Route } from "./+types/home";
 
-export function meta() {
+export function meta(_args: Route.MetaArgs) {
   return [
-    { title: "New React Router App | Home" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "QuickPoll — Create" },
+    { name: "description", content: "Create an instant live group poll" },
   ];
 }
 
-export function loader() {
-  return { message: env.VALUE_FROM_CLOUDFLARE };
-}
-
-export default function Home({ loaderData }: Route.ComponentProps) {
-  const navigate = useNavigate();
-
+export default function Home(): React.ReactElement {
   return (
-    <Welcome message={loaderData.message}>
-      <button
-        className="mx-auto"
-        type="button"
-        onClick={() => navigate("/about")}
-      >
-        Go to About
-      </button>
-    </Welcome>
+    <AppLayout>
+      <CreatePollForm />
+    </AppLayout>
   );
 }

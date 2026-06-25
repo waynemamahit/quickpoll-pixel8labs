@@ -1,0 +1,11 @@
+{
+  "poll.notFound": "Polling tidak ditemukan atau sudah kedaluwarsa.",
+  "poll.closed": "Polling ini sudah ditutup dan tidak menerima suara lagi.",
+  "poll.duplicateVote": "Anda sudah memberikan suara di polling ini.",
+  "poll.unknownOption": "Opsi yang dipilih tidak valid.",
+  "poll.forbidden": "Anda tidak berwenang menutup polling ini.",
+  "poll.created": "Polling berhasil dibuat.",
+  "poll.closedSuccess": "Polling berhasil ditutup.",
+  "errors.internal": "Terjadi kesalahan yang tidak terduga.",
+  "errors.validation": "Validasi gagal."
+}

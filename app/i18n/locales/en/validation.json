@@ -1,0 +1,10 @@
+{
+  "questionRequired": "Enter a question.",
+  "questionTooLong": "Question must be at most {{max}} characters.",
+  "optionRequired": "Option cannot be empty.",
+  "optionTooLong": "Option must be at most {{max}} characters.",
+  "tooFewOptions": "Add at least 2 options.",
+  "tooManyOptions": "At most {{max}} options allowed.",
+  "duplicateOptions": "Options must be unique.",
+  "selectOption": "Select an option to vote."
+}
