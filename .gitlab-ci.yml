@@ -1,0 +1,58 @@
+image: node:lts
+
+stages:
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+
+# Shared setup steps (checkout, Node, pnpm, install, build)
+.setup: &setup
+  - npm install -g n
+  - n $(node -p "require('./package.json').engines.node")
+  - hash -r
+  - node --version
+  - npm install -g pnpm@latest
+  - pnpm install
+  - pnpm run build
+
+deploy_staging:
+  stage: deploy
+  before_script: *setup
+  script:
+    # Generate wrangler.json with staging-specific bindings
+    - node scripts/gen-wrangler.js staging
+    # Deploy to Cloudflare Workers
+    - pnpm exec wrangler deploy
+  environment:
+    name: staging
+  only:
+    - dev
+  # Required CI/CD Variables (Settings > CI/CD > Variables):
+  # - CLOUDFLARE_API_TOKEN  (secret)
+  # - STAGING_VALUE_FROM_CLOUDFLARE
+  # - STAGING_KV_ID
+  # - STAGING_D1_DB_ID
+  # - STAGING_HYPERDRIVE_DB_ID
+  # - STAGING_VECTORIZE_INDEX_NAME
+
+deploy_production:
+  stage: deploy
+  before_script: *setup
+  script:
+    # Generate wrangler.json with production-specific bindings
+    - node scripts/gen-wrangler.js production
+    # Deploy to Cloudflare Workers
+    - pnpm exec wrangler deploy
+  environment:
+    name: production
+  only:
+    - main
+  # Required CI/CD Variables (Settings > CI/CD > Variables):
+  # - CLOUDFLARE_API_TOKEN  (secret)
+  # - PRODUCTION_VALUE_FROM_CLOUDFLARE
+  # - PRODUCTION_KV_ID
+  # - PRODUCTION_D1_DB_ID
+  # - PRODUCTION_HYPERDRIVE_DB_ID
+  # - PRODUCTION_VECTORIZE_INDEX_NAME

@@ -1,0 +1,35 @@
+.DS_Store
+.env
+/node_modules/
+*.tsbuildinfo
+/coverage
+
+# React Router
+/.react-router/
+/build/
+
+# Cloudflare
+.mf
+.wrangler
+.dev.vars*
+wrangler.json
+worker-configuration.d.ts
+
+
+!.dev.vars.example
+!.env.example
+
+# OpenSpec
+**/openspec-*/*.md
+**/opsx-*.md
+**/opsx-*.toml
+**/opsx-*.prompt
+**/commands/opsx/*.md
+**/commands/opsx/*.toml
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

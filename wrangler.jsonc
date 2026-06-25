@@ -1,0 +1,118 @@
+/**
+ * For more details on how to configure Wrangler, refer to:
+ * https://developers.cloudflare.com/workers/wrangler/configuration/
+ */
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "react-router-cf-starter",
+  "compatibility_date": "2026-06-17",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "./server/app.ts",
+  "observability": {
+    "enabled": true
+  },
+  "workers_dev": true,
+  "preview_urls": true,
+  /**
+   * Static Assets
+   * https://developers.cloudflare.com/workers/static-assets/binding/
+   */
+  "assets": { "directory": "./build/client", "binding": "ASSETS" },
+  /**
+   * Smart Placement
+   * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
+   */
+  // "placement": { "mode": "smart" }
+  /**
+   * Environment Variables
+   * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
+   */
+  "vars": {
+    // "CORS_ALLOWED_ORIGINS": "*"
+    "VALUE_FROM_CLOUDFLARE": "${VALUE_FROM_CLOUDFLARE}"
+  },
+  // For more information on KV, see https://developers.cloudflare.com/kv/
+  "kv_namespaces": [
+    {
+      "binding": "KV",
+      "id": "${KV_ID}"
+    }
+  ],
+  // For more information on D1, see https://developers.cloudflare.com/d1/
+  "d1_databases": [
+    {
+      "binding": "D1",
+      "database_name": "production_db",
+      "database_id": "${D1_DB_ID}"
+    }
+  ],
+  // For more information on Hyperdrive, see https://developers.cloudflare.com/hyperdrive/
+  "hyperdrive": [
+    {
+      "binding": "HYPERDRIVE",
+      "id": "${HYPERDRIVE_DB_ID}",
+      "localConnectionString": "postgres://postgres:postgres@127.0.0.1:5432/staging_db"
+    }
+  ],
+  // For more information on Durable Objects, see https://developers.cloudflare.com/durable-objects/
+  "migrations": [
+    {
+      "tag": "v1",
+      // "new_classes": ["Counter"], // This is work for only paid plan
+      "new_sqlite_classes": ["Counter"]
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "DO_COUNTER",
+        "class_name": "Counter"
+      }
+    ]
+  },
+  // For more information on R2, see https://developers.cloudflare.com/r2/
+  // This is work for only paid plan
+  // "r2_buckets": [
+  //   {
+  //     "binding": "R2", // <~ valid JavaScript variable name
+  //     "bucket_name": "${R2_BUCKET_NAME}"
+  //   }
+  // ],
+  // For more information on Workers AI, see https://developers.cloudflare.com/workers-ai/
+  "ai": {
+    "binding": "AI",
+    "remote": true
+  },
+  // For more information on Vectorize, see https://developers.cloudflare.com/vectorize/
+  "vectorize": [
+    {
+      "binding": "VECTORIZE",
+      "index_name": "${VECTORIZE_INDEX_NAME}",
+      "remote": true
+    }
+  ],
+  // For more information on Browser Rendering, see https://developers.cloudflare.com/browser-rendering/
+  "browser": {
+    "binding": "BROWSER"
+  },
+  // For more information on Rate Limiter, see https://developers.cloudflare.com/workers/runtime-apis/bindings/rate-limit/
+  // and see https://honohub.dev/docs/rate-limiter/stores/cloudflare
+  "ratelimits": [
+    {
+      "name": "LONG_RATE_LIMITER",
+      "namespace_id": "1001",
+      "simple": {
+        "limit": 1000,
+        "period": 60
+      }
+    },
+    {
+      "name": "SHORT_RATE_LIMITER",
+      "namespace_id": "1002",
+      "simple": {
+        "limit": 20,
+        "period": 10
+      }
+    }
+  ]
+}

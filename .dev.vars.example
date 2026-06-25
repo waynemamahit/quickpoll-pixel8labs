@@ -1,0 +1,25 @@
+# Local Development Environment Variables
+# Copy this file to .dev.vars and fill in your actual values.
+#
+# ⚡ AUTO-DISCOVERY FEATURE:
+# The gen-wrangler.js script automatically discovers ALL placeholder keys from
+# wrangler.jsonc (any ${PLACEHOLDER} pattern), so you don't need to manually
+# update this file when adding new placeholders - just add the KEY=value pair!
+#
+# 📋 CURRENT PLACEHOLDERS:
+# The following variables are currently used in wrangler.jsonc:
+
+VALUE_FROM_CLOUDFLARE=your_value_here
+KV_ID=your_kv_id_here
+D1_DB_ID=your_d1_db_id_here
+HYPERDRIVE_DB_ID=your_hyperdrive_db_id_here
+VECTORIZE_INDEX_NAME=your_vectorize_index_name_here
+
+# 🆕 ADDING NEW VARIABLES:
+# 1. Add ${YOUR_NEW_VAR} to wrangler.jsonc
+# 2. Add YOUR_NEW_VAR=value_here below
+# 3. Run: npm run preview (to test)
+# 4. For CI/CD deployments, you'll need to add:
+# - STAGING_YOUR_NEW_VAR (for staging environment)
+# - PRODUCTION_YOUR_NEW_VAR (for production environment)
+

@@ -1,0 +1,47 @@
+image: node:lts
+
+pipelines:
+  branches:
+    dev:
+      - step:
+          name: Deploy to Staging
+          script:
+            - npm install -g n
+            - n $(node -p "require('./package.json').engines.node")
+            - hash -r
+            - node --version
+            - npm install -g pnpm@latest
+            - pnpm install
+            - pnpm run build
+            - node scripts/gen-wrangler.js staging
+            - export CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN
+            - pnpm exec wrangler deploy
+          # Define these variables in Repository Settings > Repository variables:
+          # - CLOUDFLARE_API_TOKEN         (secured)
+          # - STAGING_VALUE_FROM_CLOUDFLARE
+          # - STAGING_KV_ID
+          # - STAGING_D1_DB_ID
+          # - STAGING_HYPERDRIVE_DB_ID
+          # - STAGING_VECTORIZE_INDEX_NAME
+
+    main:
+      - step:
+          name: Deploy to Production
+          script:
+            - npm install -g n
+            - n $(node -p "require('./package.json').engines.node")
+            - hash -r
+            - node --version
+            - npm install -g pnpm@latest
+            - pnpm install
+            - pnpm run build
+            - node scripts/gen-wrangler.js production
+            - export CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN
+            - pnpm exec wrangler deploy
+          # Define these variables in Repository Settings > Repository variables:
+          # - CLOUDFLARE_API_TOKEN         (secured)
+          # - PRODUCTION_VALUE_FROM_CLOUDFLARE
+          # - PRODUCTION_KV_ID
+          # - PRODUCTION_D1_DB_ID
+          # - PRODUCTION_HYPERDRIVE_DB_ID
+          # - PRODUCTION_VECTORIZE_INDEX_NAME

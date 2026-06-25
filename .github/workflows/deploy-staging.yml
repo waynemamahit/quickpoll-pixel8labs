@@ -1,0 +1,44 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy to Staging Environment
+    environment:
+      name: staging
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: 'package.json'
+
+      - name: Install pnpm
+        run: npm install -g pnpm@latest
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Generate wrangler.json
+        run: node scripts/gen-wrangler.js staging
+        env:
+          # Staging-specific secrets
+          STAGING_VALUE_FROM_CLOUDFLARE: ${{ secrets.STAGING_VALUE_FROM_CLOUDFLARE }}
+          STAGING_KV_ID: ${{ vars.STAGING_KV_ID }}
+          STAGING_D1_DB_ID: ${{ vars.STAGING_D1_DB_ID }}
+          STAGING_HYPERDRIVE_DB_ID: ${{ vars.STAGING_HYPERDRIVE_DB_ID }}
+          STAGING_VECTORIZE_INDEX_NAME: ${{ vars.STAGING_VECTORIZE_INDEX_NAME }}
+
+      - name: Deploy to Cloudflare Workers
+        run: pnpm exec wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
