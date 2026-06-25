@@ -4,7 +4,7 @@
  */
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "quickpoll-pixel8labs",
+  "name": "quickpoll-pixel8labs-staging",
   "compatibility_date": "2026-06-17",
   "compatibility_flags": ["nodejs_compat"],
   "main": "./server/app.ts",
@@ -42,7 +42,7 @@
   "d1_databases": [
     {
       "binding": "D1",
-      "database_name": "production_db",
+      "database_name": "staging_db",
       "database_id": "${D1_DB_ID}"
     }
   ],
