@@ -32,11 +32,8 @@ jobs:
         run: node scripts/gen-wrangler.js production
         env:
           # Production-specific secrets or variables
-          PRODUCTION_VALUE_FROM_CLOUDFLARE: ${{ secrets.PRODUCTION_VALUE_FROM_CLOUDFLARE }}
+          PRODUCTION_CORS_ALLOWED_ORIGINS: ${{ vars.PRODUCTION_CORS_ALLOWED_ORIGINS }}
           PRODUCTION_KV_ID: ${{ vars.PRODUCTION_KV_ID }}
-          PRODUCTION_D1_DB_ID: ${{ vars.PRODUCTION_D1_DB_ID }}
-          PRODUCTION_HYPERDRIVE_DB_ID: ${{ vars.PRODUCTION_HYPERDRIVE_DB_ID }}
-          PRODUCTION_VECTORIZE_INDEX_NAME: ${{ vars.PRODUCTION_VECTORIZE_INDEX_NAME }}
 
       - name: Deploy to Cloudflare Workers
         run: pnpm exec wrangler deploy

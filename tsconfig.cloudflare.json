@@ -6,6 +6,7 @@
     "app/**/.server/**/*",
     "app/**/.client/**/*",
     "server/**/*",
+    "shared/**/*",
     "worker-configuration.d.ts",
     "vitest.d.ts"
   ],
@@ -13,7 +14,11 @@
     "composite": true,
     "strict": true,
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "types": ["vite/client", "vitest/globals"],
+    "types": [
+      "vite/client",
+      "vitest/globals",
+      "@cloudflare/vitest-pool-workers/types"
+    ],
     "target": "ES2022",
     "module": "ES2022",
     "moduleResolution": "bundler",

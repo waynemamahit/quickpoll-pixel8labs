@@ -1,0 +1,11 @@
+{
+  "poll.notFound": "Poll not found or has expired.",
+  "poll.closed": "This poll is closed and no longer accepts votes.",
+  "poll.duplicateVote": "You have already voted in this poll.",
+  "poll.unknownOption": "The selected option is not valid.",
+  "poll.forbidden": "You are not authorized to close this poll.",
+  "poll.created": "Poll created successfully.",
+  "poll.closedSuccess": "Poll closed successfully.",
+  "errors.internal": "An unexpected error occurred.",
+  "errors.validation": "Validation failed."
+}
