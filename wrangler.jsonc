@@ -4,7 +4,7 @@
  */
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "react-router-cf-starter",
+  "name": "quickpoll-pixel8labs",
   "compatibility_date": "2026-06-17",
   "compatibility_flags": ["nodejs_compat"],
   "main": "./server/app.ts",

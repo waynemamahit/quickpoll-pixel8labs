@@ -493,7 +493,7 @@ context: |
   services:
     postgres:
       image: postgres:latest
-      container_name: react-router-cf-starter-postgres
+      container_name: quickpoll-pixel8labs-postgres
       environment:
         POSTGRES_USER: postgres
         POSTGRES_PASSWORD: postgres
